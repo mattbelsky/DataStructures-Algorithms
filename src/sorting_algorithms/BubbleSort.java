@@ -5,7 +5,6 @@ public class BubbleSort extends SortingAlgorithm {
     private int length;
 
     public BubbleSort(int[] array) {
-        super();
         this.array = new int[array.length];
         this.length = this.array.length;
 
