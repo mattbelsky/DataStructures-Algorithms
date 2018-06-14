@@ -143,7 +143,7 @@ public class SinglyLinkedList {
     }
 
     /**
-     * Returns the objects the list in string format.
+     * Returns the objects in the list in string format.
      * @return the string representation of the objects in the list
      */
     @Override
@@ -164,7 +164,7 @@ public class SinglyLinkedList {
      * Checks if the index is out of bounds and throws an exception with a custom message if so.
      * @param index
      */
-    public void isIndexOutOfBounds(int index) {
+    private void isIndexOutOfBounds(int index) {
         if (index < 0 || index >= counter) throw new ArrayIndexOutOfBoundsException("Invalid index.");
     }
 

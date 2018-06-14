@@ -11,6 +11,12 @@ public class ArrayList<T> {
         this.numObjects = 0;
     }
 
+    public ArrayList(int initialSize) {
+
+        this.array = new Object[initialSize];
+        this.numObjects = 0;
+    }
+
     /**
      * Appends the specified object to the end of the list.
      * @param obj the object to add
@@ -18,23 +24,13 @@ public class ArrayList<T> {
     public void add(T obj) {
 
         numObjects++;
-        int length = array.length;
+        resize();
 
         for (int i = 0; i < numObjects; i++) {
             if (array[i] == null) {
                 array[i] = obj;
                 break;
             }
-        }
-
-        if (numObjects == length) {
-            Object[] temp = new Object[numObjects * 3 / 2 + 1];
-
-            for (int i = 0; i < numObjects; i++) {
-                temp[i] = array[i];
-            }
-
-            array = temp;
         }
     }
 
@@ -46,12 +42,15 @@ public class ArrayList<T> {
     public void add(int index, T obj) {
 
         numObjects++;
+        isIndexOutOfBounds(index);
+        resize();
 
-        for (int i = numObjects; i > index; i++) {
-            array[i] = array[i - 1];
-            if (i == index + 1) {
-                array[i - 1] = obj;
+        for (int i = numObjects - 1; i >= index; i--) {
+            if (i == index) {
+                array[i] = obj;
+                break;
             }
+            array[i] = array[i - 1];
         }
     }
 
@@ -85,6 +84,7 @@ public class ArrayList<T> {
      */
     public void remove(T obj) {
 
+        numObjects--;
         boolean exists = false;
         for (int i = 0; i < numObjects; i++) {
             if (array[i].equals(obj)) {
@@ -127,6 +127,11 @@ public class ArrayList<T> {
     public void trimToSize() {
 
         Object[] temp = new Object[numObjects];
+
+        for (int i = 0; i < numObjects; i++) {
+            temp[i] = array[i];
+        }
+
         array = temp;
     }
 
@@ -135,9 +140,8 @@ public class ArrayList<T> {
      */
     public void clear() {
 
-        for (int i = 0; i < numObjects; i++) {
-            array[i] = null;
-        }
+        array = new Object[0];
+        numObjects = 0;
     }
 
     /**
@@ -165,7 +169,7 @@ public class ArrayList<T> {
     @Override
     public String toString() {
 
-        StringBuilder str = new StringBuilder("ArrayList = {");
+        StringBuilder str = new StringBuilder("ArrayList =\n{");
 
         for (int i = 0; i < numObjects; i++) {
             str.append("\n\t" + array[i]);
@@ -180,7 +184,33 @@ public class ArrayList<T> {
      * Checks if the index is out of bounds and throws an exception with a custom message if so.
      * @param index
      */
-    public void isIndexOutOfBounds(int index) {
+    private void isIndexOutOfBounds(int index) {
         if (index < 0 || index >= numObjects) throw new ArrayIndexOutOfBoundsException("Invalid index.");
+    }
+
+    /**
+     * Resizes the array containing the list's objects as needed.
+     */
+    private void resize() {
+
+        int length = array.length;
+        int shortLength = length / 3 * 2 + 1;
+
+        if (numObjects == length) {
+
+            Object[] temp = new Object[numObjects * 3 / 2 + 1];
+            for (int i = 0; i < numObjects; i++) temp[i] = array[i];
+            array = temp;
+
+        } else if (numObjects < shortLength) {
+
+            Object[] temp = new Object[shortLength];
+            for (int i = 0; i < numObjects; i++) temp[i] = array[i];
+            array = temp;
+        }
+    }
+
+    private int getLengthArray() {
+        return array.length;
     }
 }
