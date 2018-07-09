@@ -11,7 +11,6 @@ class SwapTwoValuesNoThirdVar {
 		System.out.println("a = " + a + "\nb = " + b);
 
 		int lengthA = a.length();
-		int lengthB = b.length();
 		
 		a = a.concat(b);
 		b = a.substring(0, lengthA);
