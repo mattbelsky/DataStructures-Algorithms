@@ -13,31 +13,31 @@ public class LinkedListController {
         list.add("Charles.");
 
         System.out.println("The original list and its size.\n");
-        printListHeadCurrentTailSize(list);
+        printListAttributes(list);
 
         System.out.println("The last element has been removed.\n");
         list.remove(list.size()-1);
-        printListHeadCurrentTailSize(list);
+        printListAttributes(list);
 
         System.out.println("The fourth element has been removed.\n");
         list.remove(3);
-        printListHeadCurrentTailSize(list);
+        printListAttributes(list);
 
         System.out.println("A node has been added to the front of the list.\n");
         list.addFirst("howdy");
-        printListHeadCurrentTailSize(list);
+        printListAttributes(list);
 
         System.out.println("A node has been added to the end of the list.\n");
         list.addLast("partner");
-        printListHeadCurrentTailSize(list);
+        printListAttributes(list);
 
         System.out.println("The first and last nodes have been removed.\n");
         list.removeFirst();
         list.removeLast();
-        printListHeadCurrentTailSize(list);
+        printListAttributes(list);
     }
 
-    static void printListHeadCurrentTailSize(DoublyLinkedList list) {
+    static void printListAttributes(DoublyLinkedList list) {
         System.out.println(list.toString());
         System.out.println("Head:");
         try {

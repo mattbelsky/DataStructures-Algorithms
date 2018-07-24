@@ -1,5 +1,6 @@
 package data_structures;
 
+// TODO Figure out how to compare generic objects and fix methods indexOf(Object) and remove(Object).
 public class ArrayList<T> {
 
     private Object[] array;
@@ -76,19 +77,20 @@ public class ArrayList<T> {
         for (int i = index; i < numObjects; i++) {
             array[i] = array[i + 1];
         }
+        array[numObjects] = null;
+        resize();
     }
 
     /**
      * Removes the specified object from the list.
      * @param obj the object to remove
      */
-    public void remove(T obj) {
+    public void remove(Object obj) {
 
-        numObjects--;
         boolean exists = false;
         for (int i = 0; i < numObjects; i++) {
             if (array[i].equals(obj)) {
-                array[i] = array[i + 1];
+                remove(i);
                 exists = true;
             }
         }
@@ -101,7 +103,7 @@ public class ArrayList<T> {
      * @param obj the object to search for
      * @return the index of the object, -1 if it doesn't exist
      */
-    public int indexOf(T obj) {
+    public int indexOf(Object obj) {
 
         for (int i = 0; i < numObjects; i++) {
             if (array[i].equals(obj)) return i;
@@ -150,8 +152,7 @@ public class ArrayList<T> {
      */
     public boolean isEmpty() {
 
-        if (numObjects == 0) return true;
-        else return false;
+        return numObjects == 0;
     }
 
     /**
@@ -205,12 +206,14 @@ public class ArrayList<T> {
         } else if (numObjects < shortLength) {
 
             Object[] temp = new Object[shortLength];
-            for (int i = 0; i < numObjects; i++) temp[i] = array[i];
+            for (int i = 0; i < numObjects; i++) {
+                temp[i] = array[i];
+            }
             array = temp;
         }
     }
 
-    private int getLengthArray() {
+    public int getLengthArray() {
         return array.length;
     }
 }
