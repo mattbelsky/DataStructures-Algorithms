@@ -1,4 +1,6 @@
-package data_structures;
+package data_structures.controllers;
+
+import data_structures.ArrayList;
 
 public class ArrayListController {
 
