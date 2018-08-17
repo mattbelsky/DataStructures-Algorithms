@@ -5,6 +5,7 @@ Custom implementation of various data structures, sorting algorithms, etc. writt
 * Singly linked list
 * Doubly linked list
 * Array list
+* Binary search tree
 * Queue
 * Stack
 

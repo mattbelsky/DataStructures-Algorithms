@@ -22,9 +22,9 @@ public class SinglyLinkedList {
         } else {
             Node element = head;
             for (int i = 0; i < counter; i++) {
-                if (element.getNext() == null) {
-                    element.setNext(new Node(obj));
-                } else element = element.getNext();
+                if (element.getNextRight() == null) {
+                    element.setNextRight(new Node(obj));
+                } else element = element.getNextRight();
             }
         }
 
@@ -45,7 +45,7 @@ public class SinglyLinkedList {
             Node element = head;
             Object data = element.getData();
             for (int i = 0; i < index; i++) {
-                element = element.getNext();
+                element = element.getNextRight();
                 data = element.getData();
             }
             return data;
@@ -59,19 +59,19 @@ public class SinglyLinkedList {
     public void remove(int index) {
 
         isIndexOutOfBounds(index);
-        Node element = head.getNext();
+        Node element = head.getNextRight();
 
         if (index == 0) {
-            head.setData(head.getNext().getData());
-            head.setNext(element.getNext());
+            head.setData(head.getNextRight().getData());
+            head.setNextRight(element.getNextRight());
         }
 
         for (int i = 1; i < index; i++) {
-            element = element.getNext();
+            element = element.getNextRight();
         }
 
         try {
-            element.setNext(element.getNext().getNext());
+            element.setNextRight(element.getNextRight().getNextRight());
         } catch (NullPointerException e) {
             // Ignore exception
         }
@@ -86,9 +86,9 @@ public class SinglyLinkedList {
     public void addFirst(Object obj) {
 
         Node temp = new Node(head.getData());
-        temp.setNext(head.getNext());
+        temp.setNextRight(head.getNextRight());
         head.setData(obj);
-        head.setNext(temp);
+        head.setNextRight(temp);
         counter++;
     }
 
@@ -101,10 +101,10 @@ public class SinglyLinkedList {
         Node element = head;
 
         for (int i = 0; i < counter - 1; i++) {
-            element = element.getNext();
+            element = element.getNextRight();
         }
 
-        element.setNext(new Node(obj));
+        element.setNextRight(new Node(obj));
         counter++;
     }
 
@@ -114,8 +114,8 @@ public class SinglyLinkedList {
      */
     public void removeFirst() {
 
-        head.setData(head.getNext().getData());
-        head.setNext(head.getNext().getNext());
+        head.setData(head.getNextRight().getData());
+        head.setNextRight(head.getNextRight().getNextRight());
         counter--;
     }
 
@@ -127,10 +127,10 @@ public class SinglyLinkedList {
         Node element = head;
 
         for (int i = 0; i < counter - 1; i++) {
-            element = element.getNext();
+            element = element.getNextRight();
         }
 
-        element.setNext(null);
+        element.setNextRight(null);
         counter--;
     }
 

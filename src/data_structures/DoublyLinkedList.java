@@ -24,13 +24,13 @@ public class DoublyLinkedList {
         } else {
             Node element = head;
             for (int i = 0; i < counter; i++) {
-                if (element.getNext() == null) {
+                if (element.getNextRight() == null) {
                     tail = new Node(obj);
-                    element.setNext(tail);
+                    element.setNextRight(tail);
                     if (element != head) {
-                        tail.setPrev(element);
+                        tail.setPrevLeft(element);
                     } else continue;
-                } else element = element.getNext();
+                } else element = element.getNextRight();
             }
         }
 
@@ -51,7 +51,7 @@ public class DoublyLinkedList {
             Node element = head;
             Object data = element.getData();
             for (int i = 0; i < index; i++) {
-                element = element.getNext();
+                element = element.getNextRight();
                 data = element.getData();
             }
             return data;
@@ -65,21 +65,21 @@ public class DoublyLinkedList {
     public void remove(int index) {
 
         isIndexOutOfBounds(index);
-        Node element = head.getNext();
+        Node element = head.getNextRight();
 
         if (index == 0) {
-            head.setData(head.getNext().getData());
-            head.setNext(element.getNext());
+            head.setData(head.getNextRight().getData());
+            head.setNextRight(element.getNextRight());
         }
 
         for (int i = 1; i < index; i++) {
             Node prev = element;
-            element = element.getNext();
-            element.setPrev(prev);
+            element = element.getNextRight();
+            element.setPrevLeft(prev);
         }
 
-        element = tail.getPrev();
-        element.setNext(null);
+        element = tail.getPrevLeft();
+        element.setNextRight(null);
         tail = element;
 
         counter--;
@@ -92,9 +92,9 @@ public class DoublyLinkedList {
     public void addFirst(Object obj) {
 
         Node temp = new Node(head.getData());
-        temp.setNext(head.getNext());
+        temp.setNextRight(head.getNextRight());
         head.setData(obj);
-        head.setNext(temp);
+        head.setNextRight(temp);
         counter++;
     }
 
@@ -105,8 +105,8 @@ public class DoublyLinkedList {
     public void addLast(Object obj) {
 
         Node element = new Node(obj);
-        tail.setNext(element);
-        element.setPrev(tail);
+        tail.setNextRight(element);
+        element.setPrevLeft(tail);
         tail = element;
         counter++;
     }
@@ -117,8 +117,8 @@ public class DoublyLinkedList {
      */
     public void removeFirst() {
 
-        head.setData(head.getNext().getData());
-        head.setNext(head.getNext().getNext());
+        head.setData(head.getNextRight().getData());
+        head.setNextRight(head.getNextRight().getNextRight());
         counter--;
     }
 
@@ -127,9 +127,9 @@ public class DoublyLinkedList {
      */
     public void removeLast() {
 
-        Node element = tail.getPrev();
+        Node element = tail.getPrevLeft();
         tail = element;
-        tail.setNext(null);
+        tail.setNextRight(null);
         counter--;
     }
 
