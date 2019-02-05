@@ -1,36 +1,30 @@
-package data_structures;
+package data_structures.linked_list;
 
-public class DoublyLinkedList {
+public class SinglyLinkedList<T> {
 
     private int counter;
     private Node head;
-    private Node tail;
 
-    public DoublyLinkedList() {
+    public SinglyLinkedList() {
 
         this.counter = 0;
         this.head = null;
-        this.tail = null;
     }
 
     /**
      * Adds the specified object to a new node in the list.
      * @param obj the object to add
      */
-    public void add(Object obj) {
+    public void add(T obj) {
 
         if (head == null) {
             head = new Node(obj);
         } else {
             Node element = head;
             for (int i = 0; i < counter; i++) {
-                if (element.getNextRight() == null) {
-                    tail = new Node(obj);
-                    element.setNextRight(tail);
-                    if (element != head) {
-                        tail.setPrevLeft(element);
-                    } else continue;
-                } else element = element.getNextRight();
+                if (element.getNext() == null) {
+                    element.setNext(new Node(obj));
+                } else element = element.getNext();
             }
         }
 
@@ -46,13 +40,13 @@ public class DoublyLinkedList {
 
         isIndexOutOfBounds(index);
 
-        if (index == 0) return head.getData();
+        if (index == 0) return head.getValue();
         else {
             Node element = head;
-            Object data = element.getData();
+            Object data = element.getValue();
             for (int i = 0; i < index; i++) {
-                element = element.getNextRight();
-                data = element.getData();
+                element = element.getNext();
+                data = element.getValue();
             }
             return data;
         }
@@ -65,22 +59,22 @@ public class DoublyLinkedList {
     public void remove(int index) {
 
         isIndexOutOfBounds(index);
-        Node element = head.getNextRight();
+        Node element = head.getNext();
 
         if (index == 0) {
-            head.setData(head.getNextRight().getData());
-            head.setNextRight(element.getNextRight());
+            head.setValue(head.getNext().getValue());
+            head.setNext(element.getNext());
         }
 
         for (int i = 1; i < index; i++) {
-            Node prev = element;
-            element = element.getNextRight();
-            element.setPrevLeft(prev);
+            element = element.getNext();
         }
 
-        element = tail.getPrevLeft();
-        element.setNextRight(null);
-        tail = element;
+        try {
+            element.setNext(element.getNext().getNext());
+        } catch (NullPointerException e) {
+            // Ignore exception
+        }
 
         counter--;
     }
@@ -91,10 +85,10 @@ public class DoublyLinkedList {
      */
     public void addFirst(Object obj) {
 
-        Node temp = new Node(head.getData());
-        temp.setNextRight(head.getNextRight());
-        head.setData(obj);
-        head.setNextRight(temp);
+        Node temp = new Node(head.getValue());
+        temp.setNext(head.getNext());
+        head.setValue(obj);
+        head.setNext(temp);
         counter++;
     }
 
@@ -104,10 +98,13 @@ public class DoublyLinkedList {
      */
     public void addLast(Object obj) {
 
-        Node element = new Node(obj);
-        tail.setNextRight(element);
-        element.setPrevLeft(tail);
-        tail = element;
+        Node element = head;
+
+        for (int i = 0; i < counter - 1; i++) {
+            element = element.getNext();
+        }
+
+        element.setNext(new Node(obj));
         counter++;
     }
 
@@ -117,8 +114,8 @@ public class DoublyLinkedList {
      */
     public void removeFirst() {
 
-        head.setData(head.getNextRight().getData());
-        head.setNextRight(head.getNextRight().getNextRight());
+        head.setValue(head.getNext().getValue());
+        head.setNext(head.getNext().getNext());
         counter--;
     }
 
@@ -127,18 +124,14 @@ public class DoublyLinkedList {
      */
     public void removeLast() {
 
-        Node element = tail.getPrevLeft();
-        tail = element;
-        tail.setNextRight(null);
+        Node element = head;
+
+        for (int i = 0; i < counter - 1; i++) {
+            element = element.getNext();
+        }
+
+        element.setNext(null);
         counter--;
-    }
-
-    public Node getFirst() {
-        return head;
-    }
-
-    public Node getLast() {
-        return tail;
     }
 
     /**
@@ -156,7 +149,7 @@ public class DoublyLinkedList {
     @Override
     public String toString() {
 
-        StringBuilder str = new StringBuilder("DoublyLinkedList =\n{");
+        StringBuilder str = new StringBuilder("SinglyLinkedList =\n{");
 
         for (int i = 0; i < this.size(); i++) {
             str.append("\n\t" + this.get(i).toString());
