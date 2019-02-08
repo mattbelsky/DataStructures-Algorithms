@@ -4,8 +4,10 @@ Custom implementation of various data structures, sorting algorithms, etc. writt
 ## Data Structures
 * Singly linked list
 * Doubly linked list
-* Array list
+* Resizable array (array list)
+* Hash table
 * Binary search tree
+* AVL tree
 * Queue
 * Stack
 
