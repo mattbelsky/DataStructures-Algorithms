@@ -17,6 +17,14 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
+     * Returns the maximum height of the tree.
+     * @return
+     */
+    public int height() {
+        return getHeight(root);
+    }
+
+    /**
      * Adds the input value to a new node on the tree.
      * @param value -- the value to add
      */
@@ -100,7 +108,7 @@ public class AVLTree<T extends Comparable<T>> {
      */
     public void remove(T value) {
 
-        // Declares and initializes the node whose value is being search for and begins a recursive search.
+        // Declares and initializes the node whose value is being searched for and begins a recursive search.
         Node<T> node = new Node<>(value);
         if (root.getValue().compareTo(value) == 0) node = root;
         else node = searchRecursively(root, value);
@@ -116,14 +124,6 @@ public class AVLTree<T extends Comparable<T>> {
             Node parent = getParent(value);
             // Determines whether the node is the left or right child of the parent and sets the appropriate branch of
             // the parent to null.
-
-            /*  Is left null?
-                    Is right.value == value?
-                        right = null
-                Is right null?
-                    Is left.value == value?
-                        left = null
-             */
             if (parent.getLeft() == null) {
                 if (parent.getRight().getValue().compareTo(value) == 0)
                     parent.setRight(null);

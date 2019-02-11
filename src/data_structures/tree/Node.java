@@ -23,7 +23,7 @@ public class Node<T extends Comparable<T>> {
         return left;
     }
 
-    public void setLeft(Node left) {
+    public void setLeft(Node<T> left) {
         this.left = left;
     }
 
@@ -31,7 +31,7 @@ public class Node<T extends Comparable<T>> {
         return right;
     }
 
-    public void setRight(Node right) {
+    public void setRight(Node<T> right) {
         this.right = right;
     }
 }
