@@ -25,6 +25,13 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
+     * Empties the tree by setting the root node to null.
+     */
+    public void clear() {
+        root = null;
+    }
+
+    /**
      * Adds the input value to a new node on the tree.
      * @param value -- the value to add
      */
@@ -245,7 +252,7 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     private void doubleRotateLeft(Node<T> a, Node<T> temp) {
-        Node<T> b ,c, d, e;
+        Node<T> b, c, d, e;
         b = a.getLeft();
         c = a.getRight();
         d = c.getLeft();
@@ -258,7 +265,7 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     private void doubleRotateRight(Node<T> a, Node<T> temp) {
-        Node<T> b ,c, d, e;
+        Node<T> b, c, d, e;
         c = a.getLeft();
         b = a.getRight();
         d = c.getRight();
